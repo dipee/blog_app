@@ -33,4 +33,21 @@ class BlogPost(models.Model):
             slug = original_slug + '-' + str(count)
             count += 1 
             queryset = BlogPost.objects.all().filter(slug__iexact=slug).count()
+        
+        self.slug=slug
+
+        if self.featred:
+           
+            try:
+                temp  = BlogPost.objects.get(featred=True) 
+                if self != temp:
+                    temp.featred = False 
+                    temp.save()
+            except BlogPost.DoesNotExist:
+                pass 
+        
+        super(BlogPost, self).save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.title
 

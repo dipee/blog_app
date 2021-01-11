@@ -1,6 +1,7 @@
 from rest_framework import serializers
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+from .models import BlogPost
+class BlogPostSerializer(serializers.ModelSerializer):
     class Meta:
-        model =
-        fields = ['url', 'username', 'email', 'is_staff']
+        model = BlogPost
+        fields = "__all__"
+        lookup_field = 'slug'
